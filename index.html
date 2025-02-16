@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildcatz Airdrop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: magenta;
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            background: #f8f9fa;
+        }
+        .task-item img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center text-white">Complete Tasks to Earn Airdrop</h1>
+    <div id="taskPage">
+        <div class="list-group" id="taskList">
+            <!-- Task 1 -->
+            <div class="task-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram">
+                <a id="task1Link" href="https://t.me/WILDCATZOFWEB3" target="_blank" onclick="startTimer(1, 'https://t.me/WILDCATZOFWEB3')">Join Wildcatz of Web3 Telegram</a>
+                <span id="timer1" class="ms-3"></span>
+                <input type="checkbox" id="task1" disabled>
+            </div>
+
+            <!-- Task 2 -->
+            <div class="task-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram">
+                <a id="task2Link" href="https://t.me/GRRMCOIN" target="_blank" onclick="startTimer(2, 'https://t.me/GRRMCOIN')">Join GRRM Coin Telegram</a>
+                <span id="timer2" class="ms-3"></span>
+                <input type="checkbox" id="task2" disabled>
+            </div>
+
+            <!-- Task 3 -->
+            <div class="task-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram">
+                <a id="task3Link" href="https://t.me/Squadscambot" target="_blank" onclick="startTimer(3, 'https://t.me/Squadscambot')">Join Authorities Maintenance Telegram</a>
+                <span id="timer3" class="ms-3"></span>
+                <input type="checkbox" id="task3" disabled>
+            </div>
+
+            <!-- Task 4 -->
+            <div class="task-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter">
+                <a id="task4Link" href="https://x.com/WILDCATZ_WEB3?t=7oUBiXVnJnUA3NwysovUSQ&s=09" target="_blank" onclick="startTimer(4, 'https://x.com/WILDCATZ_WEB3?t=7oUBiXVnJnUA3NwysovUSQ&s=09')">Follow Wildcatz Web3 on Twitter</a>
+                <span id="timer4" class="ms-3"></span>
+                <input type="checkbox" id="task4" disabled>
+            </div>
+
+            <!-- Task 5 -->
+            <div class="task-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter">
+                <a id="task5Link" href="https://wildcatzofweb3.vercel.app/" target="_blank" onclick="startTimer(5, 'https://wildcatzofweb3.vercel.app/')">Visit Wildcatz of Web3 Website</a>
+                <span id="timer5" class="ms-3"></span>
+                <input type="checkbox" id="task5" disabled>
+            </div>
+
+            <!-- Task 6 -->
+            <div class="task-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter">
+                <a id="task6Link" href="http://cryptogoat-seven.vercel.app" target="_blank" onclick="startTimer(6, 'http://cryptogoat-seven.vercel.app')">Visit Crypto Goat Website</a>
+                <span id="timer6" class="ms-3"></span>
+                <input type="checkbox" id="task6" disabled>
+            </div>
+        </div>
+
+        <button class="btn btn-primary mt-3" onclick="showWalletPage()">Submit Wallet</button>
+    </div>
+</div>
+
+<script>
+    let totalReward = 0;
+
+    function startTimer(taskNumber, url) {
+        let timerElement = document.getElementById(`timer${taskNumber}`);
+        let checkboxElement = document.getElementById(`task${taskNumber}`);
+        let seconds = 10; // 10-second countdown
+
+        timerElement.innerText = `Waiting ${seconds}s...`;
+
+        let interval = setInterval(() => {
+            seconds--;
+            timerElement.innerText = `Waiting ${seconds}s...`;
+
+            if (seconds <= 0) {
+                clearInterval(interval);
+                timerElement.innerText = "✔️ Completed";
+                checkboxElement.checked = true;
+                checkboxElement.disabled = false;
+                totalReward += 100; // Reward per task
+            }
+        }, 1000);
+
+        setTimeout(() => {
+            window.open(url, "_blank");
+        }, 500);
+    }
+
+    function showWalletPage() {
+        const allTasks = document.querySelectorAll("input[type='checkbox']");
+        const allCompleted = Array.from(allTasks).every(task => task.checked);
+
+        if (!allCompleted) {
+            alert("Complete all tasks before submitting!");
+            return;
+        }
+
+        document.getElementById("taskPage").innerHTML = `
+            <h2 class="text-center text-white">Submit Your Wallet</h2>
+            <p class="text-white">Send your Solana to this wallet address: <strong>GRRM_SOLANA_WALLET_ADDRESS</strong></p>
+            <p class="text-white">Then, submit your wallet address for verification.</p>
+            <form id="walletForm" class="mt-4">
+                <div class="mb-3">
+                    <label for="walletInput" class="form-label text-white">Your Wallet Address:</label>
+                    <input type="text" id="walletInput" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        `;
+
+        document.getElementById("walletForm").onsubmit = (e) => {
+            e.preventDefault();
+            alert(`Wallet submitted successfully! Your total reward is ${totalReward} GRRM.`);
+
+            // Redirect back to the homepage
+            window.location.href = "https://wildcatzofweb3.vercel.app/";
+        };
+    }
+</script>
+
+</body>
+</html>
